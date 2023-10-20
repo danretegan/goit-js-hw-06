@@ -13,7 +13,7 @@ const images = [
   },
 ];
 
-const myGallery = document.getElementsByClassName("gallery")[0];
+const myGallery = document.querySelector(".gallery");
 const imageElements = images
   .map((element) => `<li><img src="${element.url}" alt="${element.alt}"></li>`)
   .join("");
