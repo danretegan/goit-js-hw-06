@@ -1,20 +1,29 @@
-const loginForm = document.getElementsByClassName("login-form")[0];
+const loginForm = document.querySelector(".login-form");
 
 loginForm.addEventListener("submit", function (event) {
-  event.preventDefault(); // Evită reîncărcarea paginii la trimiterea formularului.
+  event.preventDefault(); // Previne reîncărcarea paginii la trimiterea formularului.
 
-  const dataForm = {}; //inițializam un obiect gol numit dataForm.
-  const email = document.getElementsByName("email")[0];
-  const password = document.getElementsByName("password")[0];
+  // Inițializăm un obiect gol numit dataForm.
+  // Aici vom stoca datele introduse în formularul de login pentru a le putea afișa, ulterior, în consolă:
+  const dataForm = {};
 
-  if (email.value.trim() === "" || password.value.trim() === "") {
-    alert("Toate câmpurile trebuie completate");
-    return;
+  // Folosim proprietatea elements si obținem o colecție elementsForm a tuturor elementelor din formular:
+  const elementsForm = this.elements;
+
+  // Iteram prin colecția elementsForm pentru a accesa fiecare element în parte:
+  for (let element of elementsForm) {
+    //Ne asigurăm că operăm asupra elementelor diferite de elementul "submit":
+    if (element.type !== "submit") {
+      // Ne asiguram ca elementele asupra cărora operăm nu sunt câmpuri goale, eliminăm spațiile goale nedorite  de la începutul și de la sfârșitul șirului introdus de utilizator:
+      if (element.value.trim() === "") {
+        alert("Toate câmpurile trebuie completate");
+        return;
+      }
+      // Colectăm datele introduse de utilizator:
+      dataForm[element.name] = element.value;
+    }
   }
 
-  dataForm["email"] = email.value;
-  dataForm["password"] = password.value;
-
-  console.log(dataForm); // Afișează obiectul cu datele introduse în consolă.
-  loginForm.reset(); // Resetează valorile câmpurilor din formular.
+  console.log(dataForm); // Afișăm  în consolă obiectul cu datele introduse de utilizator.
+  this.reset(); // Resetează valorile câmpurilor din formular.
 });
