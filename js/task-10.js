@@ -15,13 +15,13 @@ function getRandomHexColor() {
 function createBoxes(amount) {
   const boxesDiv = document.getElementById("boxes");
   let boxSize = 30;
-  for (let i = 0; i < amount; i = i + 1) {
+  for (let i = 0; i < amount; i++) {
     const box = document.createElement("div");
-    box.style.width = boxSize + "px";
-    box.style.height = boxSize + "px";
+    box.style.width = `${boxSize}px`;
+    box.style.height = `${boxSize}px`;
     box.style.backgroundColor = getRandomHexColor();
     boxesDiv.appendChild(box); // Adaugă div-ul creat ca un copil al elementului boxesDiv pentru a-l afișa pe pagină.
-    boxSize = boxSize + 10;
+    boxSize += 10;
   }
 }
 
@@ -33,7 +33,9 @@ function createBoxesHandler() {
 
 function destroyBoxes() {
   const boxesDiv = document.getElementById("boxes");
-  boxesDiv.innerHTML = ""; // Atribuirea unei valori goale proprietății innerHTML a elementului boxesDiv are ca rezultat ștergerea completă a conținutului din interiorul acestui element. Acest lucru înseamnă că orice elemente care există în interiorul elementului cu id-ul "boxes" vor fi eliminate complet.
+  while (boxesDiv.firstChild) {
+    boxesDiv.firstChild.remove();
+  }
 }
 
 const createButton = document.querySelector("[data-create]");
